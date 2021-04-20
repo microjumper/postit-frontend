@@ -1,0 +1,13 @@
+<div class="actions">
+  <button pButton pRipple type="button" icon="pi pi-plus" label="Nuovo" class="p-button-outlined p-button-info"></button>
+</div>
+
+<ng-container *ngIf="(posts$ | async) as posts">
+  <div class="p-grid">
+    <div class="p-col-12 p-md-6 p-lg-4 p-col-align-stretch" *ngFor="let post of posts">
+      <p-card [header]="post.title">
+        {{post.content}}
+      </p-card>
+    </div>
+  </div>
+</ng-container>
