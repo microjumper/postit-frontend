@@ -3,20 +3,22 @@
     <h6>PostIT</h6>
     <p>Sei nuovo?&nbsp;<a routerLink=".">Registrati</a></p>
 
-    <div class="p-field">
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <div class="p-field">
         <span class="p-float-label">
-            <input type="text" id="username" pInputText>
+            <input type="text" id="username" pInputText formControlName="username">
             <label for="username">Username</label>
         </span>
-    </div>
+      </div>
 
-    <div class="p-field">
+      <div class="p-field">
         <span class="p-float-label">
-            <input type="password" id="password" pInputText>
+            <input type="password" id="password" pInputText formControlName="password">
             <label for="password">Password</label>
         </span>
-    </div>
+      </div>
 
-    <button pButton type="button" label="Accedi"></button>
+      <button pButton type="submit" label="Accedi" [disabled]="!userForm.valid"></button>
+    </form>
   </div>
 </div>

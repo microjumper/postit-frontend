@@ -22,17 +22,17 @@ export class AuthService {
     return this.userBehaviorSubject.asObservable();
   }
 
-  login(user: User): Observable<User> {
-    return this.httpClient.post<User>('http://localhost:3000/', user).pipe(
-      tap(response => {
-        localStorage.setItem('user', JSON.stringify(response));
-        this.userBehaviorSubject.next(response);
+  login(username: string, password: string): Observable<User> {
+    return this.httpClient.post<User>('http://localhost:3000/login', {username, password}).pipe(
+      tap(user => {
+        localStorage.setItem('token', JSON.stringify(user.token));
+        this.userBehaviorSubject.next(user);
       })
     );
   }
 
   logout(): void {
-    localStorage.removeItem('user');
+    localStorage.removeItem('token');
     this.userBehaviorSubject.next(null);
   }
 }
