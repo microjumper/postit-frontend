@@ -1,24 +1,57 @@
 <div class="container">
   <div class="form p-fluid p-shadow-2">
     <h6>PostIT</h6>
-    <p>Sei nuovo?&nbsp;<a routerLink=".">Registrati</a></p>
+    <ng-container *ngIf="loginFormActive; then login; else register"></ng-container>
 
-    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-      <div class="p-field">
+    <ng-template #register>
+      <p>Sei gi&agrave; registrato?&nbsp;<a (click)="loginFormActive = !loginFormActive">Login</a></p>
+
+      <form [formGroup]="registrationForm" (ngSubmit)="onRegistration()">
+        <div class="p-field">
+          <span class="p-float-label">
+              <input type="text" id="r-username" pInputText formControlName="username">
+              <label for="r-username">Username</label>
+          </span>
+        </div>
+
+        <div class="p-field">
+          <span class="p-float-label">
+              <input type="password" id="r-password" pInputText formControlName="password">
+              <label for="r-password">Password</label>
+          </span>
+        </div>
+
+        <div class="p-field">
+          <span class="p-float-label">
+              <input type="password" id="r-conferma" pInputText formControlName="conferma">
+              <label for="r-conferma">Conferma password</label>
+          </span>
+        </div>
+
+        <button pButton type="submit" label="Registrati" [disabled]="!registrationForm.valid"></button>
+      </form>
+    </ng-template>
+
+    <ng-template #login>
+      <p>Sei nuovo?&nbsp;<a (click)="loginFormActive = !loginFormActive">Registrati</a></p>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <div class="p-field">
         <span class="p-float-label">
-            <input type="text" id="username" pInputText formControlName="username">
-            <label for="username">Username</label>
+            <input type="text" id="l-username" pInputText formControlName="username">
+            <label for="l-username">Username</label>
         </span>
-      </div>
+        </div>
 
-      <div class="p-field">
+        <div class="p-field">
         <span class="p-float-label">
-            <input type="password" id="password" pInputText formControlName="password">
-            <label for="password">Password</label>
+            <input type="password" id="l-password" pInputText formControlName="password">
+            <label for="l-password">Password</label>
         </span>
-      </div>
+        </div>
 
-      <button pButton type="submit" label="Accedi" [disabled]="!userForm.valid"></button>
-    </form>
+        <button pButton type="submit" label="Accedi" [disabled]="!loginForm.valid"></button>
+      </form>
+    </ng-template>
   </div>
 </div>

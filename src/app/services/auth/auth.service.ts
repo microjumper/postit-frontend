@@ -28,6 +28,21 @@ export class AuthService {
     return this.userBehaviorSubject.asObservable();
   }
 
+  register(username: string, password: string): Observable<User | null> {
+    return this.httpClient.post<string>('http://localhost:3000/register', {username, password}).pipe(
+      map(token => {
+        const decoded = jwt_decode(token) as any;
+        const user: User = {id: decoded.id, username: decoded.username};
+        if (user) {
+          localStorage.setItem('token', token);
+          this.userBehaviorSubject.next(user);
+          return user;
+        }
+        return null;
+      })
+    );
+  }
+
   login(username: string, password: string): Observable<User | null> {
     return this.httpClient.post<string>('http://localhost:3000/login', {username, password}).pipe(
       map(token => {
