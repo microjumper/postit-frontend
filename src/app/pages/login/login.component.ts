@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth/auth.service';
-import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -30,9 +29,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     this.authService.login(this.userForm.value.username, this.userForm.value.password).subscribe(
-      (response: User) => {
-        this.router.navigate([this.returnUrl]).then();
-        },
+      (user) => this.router.navigate([this.returnUrl]).then(),
       (error: Error) => console.log(error.name, error.message));
   }
 }

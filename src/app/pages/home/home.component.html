@@ -1,5 +1,9 @@
 <p-toolbar styleClass="p-shadow-2">
   <h6 class="brand">PostIT</h6>
+  <div *ngIf="user$ | async as user" class="p-toolbar-group-right">
+    <p-menu #menu [popup]="true" [model]="items"></p-menu>
+    <button type="button" pButton icon="pi pi-user" [label]="user.username" (click)="menu.toggle($event)"></button>
+  </div>
 </p-toolbar>
 
 <div class="container">
