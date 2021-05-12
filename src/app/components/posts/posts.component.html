@@ -1,5 +1,6 @@
 <div class="actions">
-  <button pButton pRipple type="button" icon="pi pi-plus" label="Nuovo" class="p-button-outlined p-button-info"></button>
+  <button pButton pRipple type="button" (click)="showDialog()"
+          icon="pi pi-plus" label="Nuovo" class="p-button-outlined p-button-info"></button>
 </div>
 
 <ng-container *ngIf="(posts$ | async) as posts">
@@ -11,3 +12,24 @@
     </div>
   </div>
 </ng-container>
+
+<p-dialog header="Nuovo Post" [(visible)]="display">
+  <div class="dialog-content">
+    <span class="p-float-label">
+      <input type="text" id="inputtext" pInputText [(ngModel)]="post.title">
+      <label for="inputtext">Titolo</label>
+    </span>
+
+    <span class="p-float-label">
+      <textarea id="inputtextarea" [rows]="5" [cols]="30" pInputTextarea [(ngModel)]="post.content"></textarea>
+      <label for="inputtext">Contenuto</label>
+    </span>
+  </div>
+
+  <p-footer class="dialog-footer">
+    <button [disabled]="post.title.length === 0 || post.content.length === 0" pButton pRipple type="button" (click)="addPost()"
+            icon="pi pi-check" label="Ok" class="p-button-outlined p-button-success"></button>
+    <button pButton pRipple type="button" (click)="cancel()"
+            icon="pi pi-times" label="Annulla" class="p-button-outlined p-button-warning"></button>
+  </p-footer>
+</p-dialog>

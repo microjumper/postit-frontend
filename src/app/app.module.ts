@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { PrimengModule} from './modules/primeng.module';
@@ -20,14 +20,15 @@ import { AuthInterceptor } from './interceptors/auth/auth.interceptor';
     LoginComponent,
     HomeComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
-    AppRoutingModule,
-    HttpClientModule,
-    PrimengModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        ReactiveFormsModule,
+        AppRoutingModule,
+        HttpClientModule,
+        PrimengModule,
+        FormsModule
+    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
